@@ -64,5 +64,6 @@ p {
   display: flex;
   justify-content: center;
   margin: 2vw 0 0 0;
+  color: white;
 }
 </style>

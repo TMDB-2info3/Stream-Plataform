@@ -47,7 +47,7 @@ onMounted(async () => {
   <loading v-model:active="isLoading" is-full-page />
   <div class="tv-list">
     <div v-for="tv in tvs" :key="tv.id" class="tv-card">
-      <img :src="`https://image.tmdb.org/t/p/w500${tv.poster_path}`" :alt="tv.name" 
+      <img :src="`https://image.tmdb.org/t/p/w500${tv.poster_path}`" :alt="tv.name"
       @click="openTv(tv.id)"/>
       <div class="tv-details">
         <p class="tv-name">{{ tv.name }}</p>
@@ -77,7 +77,7 @@ onMounted(async () => {
 }
 
 .genre-item {
-  background-color: #5d6424;
+  background-color: #6C0A0A;
   border-radius: 1rem;
   padding: 0.5rem 1rem;
   align-self: center;
@@ -88,8 +88,8 @@ onMounted(async () => {
 
 .genre-item:hover {
   cursor: pointer;
-  background-color: #7d8a2e;
-  box-shadow: 0 0 0.5rem #5d6424;
+  background-color: #961d1d;
+  box-shadow: 0 0 0.5rem #6C0A0A;
 }
 
 .tv-list {
@@ -103,7 +103,8 @@ onMounted(async () => {
   height: 30rem;
   border-radius: 0.5rem;
   overflow: hidden;
-  box-shadow: 0 0 0.5rem #000;
+  background-color: #6C0A0A;
+  box-shadow:  0.3rem 0.5rem #937217;
 }
 
 .tv-card img {
@@ -115,6 +116,7 @@ onMounted(async () => {
 
 .tv-details {
   padding: 0 0.5rem;
+  color: white;
 }
 
 .tv-name {
@@ -122,6 +124,7 @@ onMounted(async () => {
   font-weight: bold;
   line-height: 1.3rem;
   height: 3.2rem;
+  color: white;
 }
 
 .tv-genres {
@@ -134,7 +137,7 @@ onMounted(async () => {
 }
 
 .tv-genres span {
-  background-color: #748708;
+  background-color: #937217;
   border-radius: 0.5rem;
   padding: 0.2rem 0.5rem;
   color: #fff;
@@ -144,17 +147,17 @@ onMounted(async () => {
 
 .tv-genres span:hover {
   cursor: pointer;
-  background-color: #455a08;
-  box-shadow: 0 0 0.5rem #748708;
+  background-color: #937217;
+  box-shadow: 0 0 0.5rem #c5ae2e;
 }
 
 .active {
-  background-color: #67b086;
+  background-color: #a51515;
   font-weight: bolder;
 }
 
 .tv-genres span.active {
-  background-color: #abc322;
+  background-color: #c29519;
   color: #000;
   font-weight: bolder;
 }

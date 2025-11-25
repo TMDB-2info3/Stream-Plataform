@@ -73,7 +73,7 @@ onMounted(async () => {
 }
 
 .genre-item {
-    background-color: #387250;
+    background-color: #6C0A0A;
     border-radius: 1rem;
     padding: 0.5rem 1rem;
     color: #fff;
@@ -81,14 +81,15 @@ onMounted(async () => {
 
 .genre-item:hover {
     cursor: pointer;
-    background-color: #4e9e5f;
-    box-shadow: 0 0 0.5rem #387250;
+    background-color: #961d1d;
+    box-shadow: 0 0 0.5rem #6C0A0A;
 }
 
 .movie-list {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+
 }
 
 .movie-card {
@@ -96,7 +97,8 @@ onMounted(async () => {
     height: 30rem;
     border-radius: 0.5rem;
     overflow: hidden;
-    box-shadow: 0 0 0.5rem #000;
+    box-shadow:  0.3rem 0.5rem #937217;
+    background-color: #6C0A0A;
 }
 
 .movie-card img {
@@ -108,6 +110,7 @@ onMounted(async () => {
 
 .movie-details {
     padding: 0 0.5rem;
+    color: white;
 }
 
 .movie-title {
@@ -115,6 +118,7 @@ onMounted(async () => {
     font-weight: bold;
     line-height: 1.3rem;
     height: 3.2rem;
+    color: white;
 }
 
 .movie-genres {
@@ -124,30 +128,32 @@ onMounted(async () => {
     align-items: flex-start;
     justify-content: center;
     gap: 0.2rem;
+
 }
 
 .movie-genres span {
-    background-color: #748708;
+    background-color: #937217; /* Muda a cor da parte do filtro de generos em baixo das fotos dos filmes*/
     border-radius: 0.5rem;
     padding: 0.2rem 0.5rem;
-    color: #fff;
+    color: #fff; /*Muda a cor das letras do filtro de generos*/
     font-size: 0.8rem;
     font-weight: bold;
+
 }
 
 .movie-genres span:hover {
     cursor: pointer;
-    background-color: #455a08;
-    box-shadow: 0 0 0.5rem #748708;
+    background-color: #937217;
+    box-shadow: 0 0 0.5rem #c5ae2e;
 }
 
 .active {
-    background-color: #67b086;
+    background-color: #a51515;
     font-weight: bolder;
 }
 
 .movie-genres span.active {
-    background-color: #abc322;
+    background-color: #c29519;
     color: #000;
     font-weight: bolder;
 }

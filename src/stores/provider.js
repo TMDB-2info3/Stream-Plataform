@@ -9,8 +9,8 @@ export const useProviderStore = defineStore('provider', () => {
 
     const currentProviders = computed(() => state.currentProviders);
 
-    const getProvidersDetail = async (movieId) => {
-    const response = await api.get(`movie/${movieId}/watch/providers`);
+    const getProvidersDetail = async () => {
+    const response = await api.get(`https://api.themoviedb.org/3/watch/providers/movie?language=pt-BR&watch_region=BR`);
     state.currentProviders = response.data;
   };
 

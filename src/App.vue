@@ -1,11 +1,15 @@
 <script setup>
 import HeaderComponent from './components/HeaderComponent.vue';
+import { ref } from 'vue'
 
+let isOpen = ref(false);
+let lightDark = ref(false);
 </script>
 
 <template>
-  <HeaderComponent />
-  <main>
+  <HeaderComponent @toggle-menu="isOpen = $event"
+  @toggle-lightDark="lightDark = $event" />
+  <main :class="{ 'dark-mode': lightDark, 'light-mode': !lightDark }" :style="{ marginRight: isOpen ? '300px' : '0', transition: 'margin-right 0.3s' }">
     <router-view />
   </main>
   <footer></footer>
@@ -13,24 +17,14 @@ import HeaderComponent from './components/HeaderComponent.vue';
 </template>
 
 <style scoped>
-header {
-  height: 3rem;
-  display: flex;
+.light-mode {
+  background-color: white;
+  color: black;
+}
+
+.dark-mode {
   background-color: black;
-  color: #fff;
-  font-size: 1.2rem;
-  padding-left: 2rem;
+  color: white;
 }
 
-nav {
-  column-gap: 2rem;
-  margin-bottom: 0;
-  display: flex;
-  align-items: center;
-}
-
-nav a {
-  text-decoration: none;
-  color: #fff;
-}
 </style>

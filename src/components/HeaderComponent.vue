@@ -1,6 +1,20 @@
 <script setup>
-import { ref, onMounted, nextTick, defineEmits } from 'vue'
+import { ref, onMounted, nextTick, defineEmits, watch } from 'vue'
 import { useProviderStore } from '@/stores/provider.js'
+import { useSearchStore } from '@/stores/search.js';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const searchStore = useSearchStore();
+const searchText = ref('');
+
+watch(searchText, async (val) => {
+  await searchStore.searchAll(val);
+  if (val.trim() !== '') {
+    router.push('/search');
+  }
+});
+
 
 let trueFalse = ref(false);
 let lightDark = ref(false);
@@ -50,7 +64,8 @@ onMounted(() => {
         </nav>
 
         <div class="search-wrapper">
-            <input type="text" class="search" placeholder="Pesquisar..." />
+            <input type="text" class="search" placeholder="Pesquisar..." v-model="searchText"/> 
+            <span class="mdi mdi-magnify"></span>
         </div>
 
         <span class="mdi" :class="lightDark ? 'mdi-brightness-4' : 'mdi-brightness-5'"
@@ -117,15 +132,29 @@ span {
     font-size: 150%;
 }
 
+:deep(.search-wrapper .mdi-magnify) {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 90%;
+    pointer-events: none;
+    color: #6C0A0A;
+}
+
 .search-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
 
     & input {
         font-size: 90%;
         border-radius: 5px;
-        border-style: none;
+        border: none;
+        padding-left: 10px;
+        height: 32px;
     }
+
 }
 
 .menu {

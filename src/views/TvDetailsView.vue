@@ -66,6 +66,8 @@ main {
     border-radius: 1rem;
     margin: 5vw 0 1vw 42.5vw;
     height: 23vw;
+    border: 5px solid #937217; 
+    border-radius: 10px;
 }
 .details {
  text-align: center;

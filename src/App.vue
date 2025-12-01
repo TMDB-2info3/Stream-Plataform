@@ -4,6 +4,8 @@ import { ref } from 'vue';
 
 let isOpen = ref(false);
 let lightDark = ref(false);
+
+
 </script>
 
 <template>
@@ -17,12 +19,13 @@ let lightDark = ref(false);
 
 <style scoped>
 .light-mode { 
-  background-color: 
-  white; 
+  background-color: white; 
   color: black; 
+  box-shadow: 0 0 1rem black;
 }
 .dark-mode { 
   background-color: black; 
   color: white; 
+  box-shadow: 0 0 1rem white;
 }
 </style>

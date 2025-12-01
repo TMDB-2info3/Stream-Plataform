@@ -51,7 +51,7 @@ function openItem(item) {
   width: 15rem;
   border-radius: 0.5rem;
   overflow: hidden;
-  box-shadow: 0 0 0.5rem #000;
+  box-shadow: 0 0 0.5rem var(--shadow-color);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,7 +61,7 @@ function openItem(item) {
 .item-card:hover {
   cursor: pointer;
   transform: translateY(-5px);
-  box-shadow: 0 0 1rem #000;
+  box-shadow: 0 0 1rem var(--shadow-color);
 }
 
 .item-card img {

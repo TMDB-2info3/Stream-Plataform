@@ -15,7 +15,6 @@ watch(searchText, async (val) => {
   }
 });
 
-
 let trueFalse = ref(false);
 let lightDark = ref(false);
 const providerStore = useProviderStore();
@@ -50,7 +49,7 @@ onMounted(() => {
 <template>
     <header>
         <img src="/img/logo.png" alt="">
-        <nav>
+        <nav class="nav">
             <router-link to="/">
                 <span class="mdi mdi-home"></span>
             </router-link>
@@ -60,7 +59,6 @@ onMounted(() => {
             <router-link to="/tv">
                 <span class="mdi mdi-television"></span>
             </router-link>
-
         </nav>
 
         <div class="search-wrapper">
@@ -68,6 +66,7 @@ onMounted(() => {
             <span class="mdi mdi-magnify"></span>
         </div>
 
+        <div class="ritgh-itens">
         <span class="mdi" :class="lightDark ? 'mdi-brightness-4' : 'mdi-brightness-5'"
             @click="() => { lightDark = !lightDark; emit('toggle-lightDark', lightDark) }">
         </span>
@@ -93,6 +92,7 @@ onMounted(() => {
                 </div>
             </div>
         </nav>
+                </div>
 
     </header>
 </template>
@@ -117,14 +117,20 @@ header {
         width: 50%;
     }
 
-    & nav:last-of-type div {
-        margin-left: auto;
-        padding-right: 20px;
+    .nav {
+        display: flex;
+        align-items: center;
+        width: 50%;
+
+        & span {
+            margin-right: 20px;
+        }
     }
 
     img {
         height: 5vw;
     }
+
 }
 
 span {
@@ -143,7 +149,9 @@ span {
 }
 
 .search-wrapper {
-    position: relative;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
 
@@ -155,6 +163,14 @@ span {
         height: 32px;
     }
 
+}
+
+.ritgh-itens {
+    display: flex;
+    align-items: center;
+    margin-left: auto; 
+    margin-right: 10px;
+    gap: 10px;
 }
 
 .menu {

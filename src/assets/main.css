@@ -14,6 +14,18 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+:root {
+  --bg-color: white;
+  --text-color: black;
+  --shadow-color: black;
+}
+
+.dark-mode {
+  --bg-color: black;
+  --text-color: white;
+  --shadow-color: white;
+}
+
 html {
     font-size: calc(15px + 0.390625vw);
 }

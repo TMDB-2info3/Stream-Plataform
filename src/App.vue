@@ -1,6 +1,7 @@
 <script setup>
 import HeaderComponent from './components/HeaderComponent.vue';
 import { ref } from 'vue';
+import FooterView from './views/FooterView.vue';
 
 let isOpen = ref(false);
 let lightDark = ref(false);

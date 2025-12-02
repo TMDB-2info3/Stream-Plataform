@@ -11,6 +11,11 @@ const routes = [
         name: 'Movies',
         component: () => import('../views/MoviesView.vue'),
     },
+    {
+        path: '/onde-assistir',
+        name: 'Providers',
+        component: () => import('../views/ProviderView.vue'),
+    },
     { 
         path: '/search', 
         name: 'Search',

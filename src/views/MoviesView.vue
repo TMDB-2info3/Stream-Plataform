@@ -119,15 +119,15 @@ onMounted(async () => {
     height: 30rem;
     border-radius: 0.5rem;
     overflow: hidden;
-    box-shadow:  0.3rem 0.5rem #937217;
     background-color: #6C0A0A;
+    box-shadow: 0 0 0.5rem var(--shadow-color);
 }
 
 .movie-card img {
     width: 100%;
     height: 20rem;
     border-radius: 0.5rem;
-    box-shadow: 0 0 0.5rem #000;
+    box-shadow: 0 0 0.5rem var(--shadow-color);
 }
 
 .movie-details {

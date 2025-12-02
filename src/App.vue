@@ -1,38 +1,31 @@
 <script setup>
+import HeaderComponent from './components/HeaderComponent.vue';
+import { ref } from 'vue';
+
+let isOpen = ref(false);
+let lightDark = ref(false);
+
+
 </script>
 
 <template>
-  <header>
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/filmes">Filmes</router-link>
-      <router-link to="/tv">Programas de TV</router-link>
-    </nav>
-  </header>
-  <main>
+  <HeaderComponent @toggle-menu="isOpen = $event" @toggle-lightDark="lightDark = $event" />
+  <main :class="{ 'dark-mode': lightDark, 'light-mode': !lightDark }"
+        :style="{ marginRight: isOpen ? '300px' : '0', transition: 'margin-right 0.3s' }">
     <router-view />
   </main>
+  <FooterView />
 </template>
 
 <style scoped>
-header {
-  height: 3rem;
-  display: flex;
-  background-color: black;
-  color: #fff;
-  font-size: 1.2rem;
-  padding-left: 2rem;
+.light-mode { 
+  background-color: white; 
+  color: black; 
+  box-shadow: 0 0 1rem black;
 }
-
-nav {
-  column-gap: 2rem;
-  margin-bottom: 0;
-  display: flex;
-  align-items: center;
-}
-
-nav a {
-  text-decoration: none;
-  color: #fff;
+.dark-mode { 
+  background-color: black; 
+  color: white; 
+  box-shadow: 0 0 1rem white;
 }
 </style>

@@ -84,7 +84,6 @@ onMounted(async () => {
     </div>
   </div>
 
-  <!-- BOTÃO VER MAIS -->
   <div class="see-more" v-if="tvs.length">
     <button @click="loadMore">Ver Mais</button>
   </div>
@@ -177,7 +176,6 @@ onMounted(async () => {
   font-weight: bolder;
 }
 
-/* BOTÃO VER MAIS */
 .see-more {
   width: 100%;
   display: flex;

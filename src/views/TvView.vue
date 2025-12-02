@@ -130,7 +130,7 @@ onMounted(async () => {
   border-radius: 0.5rem;
   overflow: hidden;
   background-color: #6C0A0A;
-  box-shadow: 0.3rem 0.5rem #937217;
+  box-shadow: 0 0 0.5rem var(--shadow-color);
 }
 
 .tv-card img {

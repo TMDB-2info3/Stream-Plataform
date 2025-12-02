@@ -8,20 +8,34 @@ import { useRouter } from 'vue-router'
 const genreStore = useGenreStore();
 const isLoading = ref(false);
 const tvs = ref([]);
+const page = ref(1);
 const router = useRouter()
 
-const listTVs = async (genreId) => {
+const listTVs = async (genreId, reset = true) => {
   genreStore.setCurrentGenreId(genreId);
+
+  if (reset) {
+    page.value = 1;
+    tvs.value = [];
+  }
+
   isLoading.value = true;
   const response = await api.get('discover/tv', {
     params: {
       with_genres: genreId,
-      language: 'pt-BR'
+      language: 'pt-BR',
+      page: page.value
     }
   });
-  tvs.value = response.data.results
+
+  tvs.value = [...tvs.value, ...response.data.results]
   isLoading.value = false;
 };
+
+function loadMore() {
+  page.value++;
+  listTVs(genreStore.currentGenreId, false);
+}
 
 function openTv(tvId) {
   router.push({ name: 'TvDetails', params: { tvId } });
@@ -38,32 +52,42 @@ onMounted(async () => {
 
 <template>
   <h1>Programas de TV</h1>
+
   <ul class="genre-list">
-    <li v-for="genre in genreStore.genres" :key="genre.id" @click="listTVs(genre.id)" class="genre-item"
-    :class="{ active: genre.id === genreStore.currentGenreId }">
+    <li v-for="genre in genreStore.genres" :key="genre.id"
+        @click="listTVs(genre.id)"
+        class="genre-item"
+        :class="{ active: genre.id === genreStore.currentGenreId }">
       {{ genre.name }}
     </li>
   </ul>
+
   <loading v-model:active="isLoading" is-full-page />
+
   <div class="tv-list">
     <div v-for="tv in tvs" :key="tv.id" class="tv-card">
-      <img :src="`https://image.tmdb.org/t/p/w500${tv.poster_path}`" :alt="tv.name" 
-      @click="openTv(tv.id)"/>
+      <img :src="`https://image.tmdb.org/t/p/w500${tv.poster_path}`"
+           :alt="tv.name"
+           @click="openTv(tv.id)"/>
       <div class="tv-details">
         <p class="tv-name">{{ tv.name }}</p>
         <p class="tv-release-date">{{ formatDate(tv.first_air_date) }}</p>
         <p class="tv-genres">
-          <span
-          v-for="genre_id in tv.genre_ids"
-          :key="genre_id"
-          @click="listTVs(genre_id)"
-          :class="{ active: genre_id === genreStore.currentGenreId }">
+          <span v-for="genre_id in tv.genre_ids"
+                :key="genre_id"
+                @click.stop="listTVs(genre_id)"
+                :class="{ active: genre_id === genreStore.currentGenreId }">
             {{ genreStore.getGenreName(genre_id) }}
           </span>
         </p>
       </div>
     </div>
   </div>
+
+  <div class="see-more" v-if="tvs.length">
+    <button @click="loadMore">Ver Mais</button>
+  </div>
+
 </template>
 
 <style scoped>
@@ -77,24 +101,26 @@ onMounted(async () => {
 }
 
 .genre-item {
-  background-color: #5d6424;
+  background-color: #6C0A0A;
   border-radius: 1rem;
   padding: 0.5rem 1rem;
   align-self: center;
   color: #fff;
   display: flex;
   justify-content: center;
+  transition: 0.3s;
 }
 
 .genre-item:hover {
   cursor: pointer;
-  background-color: #7d8a2e;
-  box-shadow: 0 0 0.5rem #5d6424;
+  background-color: #961d1d;
+  box-shadow: 0 0 0.5rem #6C0A0A;
 }
 
 .tv-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
 }
 
@@ -103,6 +129,7 @@ onMounted(async () => {
   height: 30rem;
   border-radius: 0.5rem;
   overflow: hidden;
+  background-color: #6C0A0A;
   box-shadow: 0 0 0.5rem var(--shadow-color);
 }
 
@@ -115,6 +142,7 @@ onMounted(async () => {
 
 .tv-details {
   padding: 0 0.5rem;
+  color: white;
 }
 
 .tv-name {
@@ -122,41 +150,53 @@ onMounted(async () => {
   font-weight: bold;
   line-height: 1.3rem;
   height: 3.2rem;
+  color: white;
 }
 
 .tv-genres {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: center;
   gap: 0.2rem;
+  justify-content: center;
 }
 
 .tv-genres span {
-  background-color: #748708;
+  background-color: #937217;
   border-radius: 0.5rem;
   padding: 0.2rem 0.5rem;
   color: #fff;
   font-size: 0.8rem;
   font-weight: bold;
-}
-
-.tv-genres span:hover {
   cursor: pointer;
-  background-color: #455a08;
-  box-shadow: 0 0 0.5rem #748708;
-}
-
-.active {
-  background-color: #67b086;
-  font-weight: bolder;
 }
 
 .tv-genres span.active {
-  background-color: #abc322;
+  background-color: #c29519;
   color: #000;
   font-weight: bolder;
 }
 
+.see-more {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.see-more button {
+  background-color: #6C0A0A;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.see-more button:hover {
+  background-color: #a51616;
+  color: #000;
+}
 </style>

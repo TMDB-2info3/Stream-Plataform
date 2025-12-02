@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <p>Produtoras</p>
+  <p class="produtores">Produtoras</p>
   <div class="companies">
     <template
       v-for="company in TvStore.currentTv.production_companies"
@@ -50,11 +50,36 @@
 </template>
 
 <style scoped>
-  .companies {
+ .companies {
     display: flex;
     flex-direction: row;
     column-gap: 3rem;
     align-items: center;
     margin-bottom: 2rem;
-  }
+}
+main {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+.content img {
+    border-radius: 1rem;
+    margin: 5vw 0 1vw 42.5vw;
+    height: 23vw;
+    border: 5px solid #937217; 
+    border-radius: 10px;
+}
+.details {
+ text-align: center;
+}
+.companies {
+    display: flex;
+    justify-content: center;
+    margin: 1vw 0 0 0;
+}
+p.produtoras {
+ display: flex;
+  justify-content: center;
+  font-size: 1.8vw;
+}
 </style>

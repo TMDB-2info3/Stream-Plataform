@@ -16,6 +16,7 @@ onMounted(async () => {
 </script>
 
 <template>
+
     <div class="main">
         <div class="content">
             <img :src="`https://image.tmdb.org/t/p/w185${movieStore.currentMovie.poster_path}`"
@@ -31,7 +32,7 @@ onMounted(async () => {
         </div>
     </div>
 
-    <p>Produtoras</p>
+    <p class="produtoras">Produtoras</p>
     <div class="companies">
         <template v-for="company in movieStore.currentMovie.production_companies" :key="company.id">
             <img v-if="company.logo_path" :src="`https://image.tmdb.org/t/p/w92${company.logo_path}`"
@@ -48,5 +49,30 @@ onMounted(async () => {
     column-gap: 3rem;
     align-items: center;
     margin-bottom: 2rem;
+}
+main {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+.content img {
+    border-radius: 1rem;
+    margin: 5vw 0 1vw 42.5vw;;
+    height: 23vw;
+    border: 5px solid #937217; 
+    border-radius: 10px;
+}
+.details {
+ text-align: center;
+}
+.companies {
+    display: flex;
+    justify-content: center;
+    margin: 1vw 0 0 0;
+}
+p.produtoras {
+ display: flex;
+  justify-content: center;
+  font-size: 1.8vw;
 }
 </style>

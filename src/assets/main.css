@@ -13,3 +13,29 @@ body {
   font-size: 15px;
   text-rendering: optimizeLegibility;
 }
+
+:root {
+  --bg-color: white;
+  --text-color: black;
+  --shadow-color: black;
+}
+
+.dark-mode {
+  --bg-color: black;
+  --text-color: white;
+  --shadow-color: white;
+}
+
+html {
+    font-size: calc(15px + 0.390625vw);
+}
+
+main {
+    padding-top: calc(4rem + 0.390625vw); /* mesmo valor do header */
+}
+
+
+a {
+  text-decoration: none;
+  color: #fff;
+}

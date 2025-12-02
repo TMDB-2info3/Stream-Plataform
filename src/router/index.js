@@ -12,6 +12,16 @@ const routes = [
         component: () => import('../views/MoviesView.vue'),
     },
     {
+        path: '/onde-assistir',
+        name: 'Providers',
+        component: () => import('../views/ProviderView.vue'),
+    },
+    { 
+        path: '/search', 
+        name: 'Search',
+        component: () => import('../views/SearchView.vue'),
+    },
+    {
         path: '/tv',
         name: 'TV',
         component: () => import('../views/TvView.vue'),

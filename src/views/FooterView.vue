@@ -1,7 +1,7 @@
 
 <template>
-<section>
-  <div class="tudo">
+  <footer>
+      <div class="tudo">
 
 
   <div class="criadores">
@@ -27,8 +27,7 @@
     <p>
     © 2025 Alguns direitos reservados
   </p>
-  </section>
-
+  </footer>
 </template>
 
 <style scoped>
@@ -40,7 +39,7 @@ div.tudo {
   display: flex;
   justify-content: space-between;
 }
-section {
+footer {
   padding: 3vw 0 2vw 0;
   background-color: #6C0A0A;
 }
@@ -59,6 +58,10 @@ div.criadores {
 }
 div.logo {
   margin: 0 18.5vw 0 0;
+}
+.logo img {
+  width: 250%;
+  height: 100%;
 }
 p {
   display: flex;

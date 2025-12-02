@@ -137,7 +137,7 @@ onMounted(async () => {
   width: 100%;
   height: 20rem;
   border-radius: 0.5rem;
-  box-shadow: 0 0 0.5rem var(--shadow-color);
+  box-shadow: 0 0 0.5rem #000;
 }
 
 .tv-details {

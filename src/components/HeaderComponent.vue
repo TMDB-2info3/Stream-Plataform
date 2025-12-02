@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, nextTick, defineEmits, watch } from 'vue'
+import { ref, onMounted, nextTick, defineEmits, watch, onBeforeUnmount  } from 'vue'
 import { useProviderStore } from '@/stores/provider.js'
 import { useSearchStore } from '@/stores/search.js';
 import { useRouter } from 'vue-router';
@@ -9,10 +9,10 @@ const searchStore = useSearchStore();
 const searchText = ref('');
 
 watch(searchText, async (val) => {
-  await searchStore.searchAll(val);
-  if (val.trim() !== '') {
-    router.push('/search');
-  }
+    await searchStore.searchAll(val);
+    if (val.trim() !== '') {
+        router.push('/search');
+    }
 });
 
 let trueFalse = ref(false);
@@ -26,14 +26,42 @@ const emit = defineEmits(['toggle-lightDark', 'toggle-menu'])
 const updateMenuHeight = () => {
     const header = document.querySelector('header')
     const footer = document.querySelector('footer')
+
     if (header && footer) {
-        headerHeight.value = header.offsetHeight
-        const viewportHeight = window.innerHeight
-        const availableHeight = viewportHeight - header.offsetHeight - footer.offsetHeight
-        menuHeight.value = availableHeight + 'px'
+        const headerRect = header.getBoundingClientRect()
+        const footerRect = footer.getBoundingClientRect()
+        const heightBetween = footerRect.top - headerRect.bottom
+        menuHeight.value = Math.max(heightBetween, 0) + 'px'
+        headerHeight.value = headerRect.height
     }
 }
 
+let resizeObserver
+let mutationObserver
+
+onMounted(() => {
+    nextTick(() => {
+        updateMenuHeight()
+
+        resizeObserver = new ResizeObserver(() => {
+            updateMenuHeight()
+        })
+        resizeObserver.observe(document.body)
+
+        mutationObserver = new MutationObserver(() => {
+            updateMenuHeight()
+        })
+        mutationObserver.observe(document.body, { childList: true, subtree: true })
+    })
+
+    window.addEventListener('resize', updateMenuHeight)
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', updateMenuHeight)
+    resizeObserver?.disconnect()
+    mutationObserver?.disconnect()
+})
 
 onMounted(() => {
     providerStore.getProvidersDetail()
@@ -62,37 +90,47 @@ onMounted(() => {
         </nav>
 
         <div class="search-wrapper">
-            <input type="text" class="search" placeholder="Pesquisar..." v-model="searchText"/> 
+            <input type="text" class="search" placeholder="Pesquisar..." v-model="searchText" />
             <span class="mdi mdi-magnify"></span>
         </div>
 
         <div class="ritgh-itens">
-        <span class="mdi" :class="lightDark ? 'mdi-brightness-4' : 'mdi-brightness-5'"
-            @click="() => { lightDark = !lightDark; emit('toggle-lightDark', lightDark) }">
-        </span>
+            <span class="mdi" :class="lightDark? 'mdi-brightness-4' : 'mdi-brightness-5'" @click="() => {
+                lightDark = !lightDark;
+                emit('toggle-lightDark', lightDark);
+            }">
+            </span>
 
 
-        <nav>
-            <div>
-                <span class="mdi" :class="trueFalse ? 'mdi-close' : 'mdi-menu'"
-                    @click="() => { updateMenuHeight(); trueFalse = !trueFalse; emit('toggle-menu', trueFalse) }"></span>
-                <div v-if="trueFalse" class="menu" :style="{ top: headerHeight + 'px', height: menuHeight }">
-                    <ul>
-                        <li v-for="provider in providerStore.currentProviders.results || []"
-                            :key="provider.provider_id">
+            <nav>
+                <div>
+                    <span class="mdi" :class="trueFalse ? 'mdi-close' : 'mdi-menu'" @click="() => {
+                        updateMenuHeight();
+                        trueFalse = !trueFalse;
+                        emit('toggle-menu', trueFalse);
+                    }">
+                    </span>
+                    <div v-if="trueFalse" class="menu" :style="{ top: headerHeight + 'px', height: menuHeight }">
+                        <ul>
+                            <li v-for="provider in providerStore.currentProviders.results || []"
+                                :key="provider.provider_id">
 
-                            <router-link to="/onde-assistir">
-                                <img :src="'https://image.tmdb.org/t/p/w45' + provider.logo_path"
-                                    :alt="provider.provider_name" />
+                                <router-link :to="{
+                                    name: 'Providers',
+                                    query: { providerId: provider.provider_id }
+                                }">
 
-                                <p> {{ provider.provider_name }} </p>
-                            </router-link>
-                        </li>
-                    </ul>
+                                    <img :src="'https://image.tmdb.org/t/p/w45' + provider.logo_path"
+                                        :alt="provider.provider_name" />
+
+                                    <p> {{ provider.provider_name }} </p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-                </div>
+            </nav>
+        </div>
 
     </header>
 </template>
@@ -110,6 +148,7 @@ header {
     padding-left: 1vw;
     display: flex;
     align-items: center;
+    position: relative;
 
     & nav {
         display: flex;
@@ -168,15 +207,15 @@ span {
 .ritgh-itens {
     display: flex;
     align-items: center;
-    margin-left: auto; 
+    margin-left: auto;
     margin-right: 10px;
     gap: 10px;
 }
 
 .menu {
-    position: fixed;
+    position: absolute; 
     left: auto;
-    top: 0;
+    top: 100%;
     right: 0;
     overflow-y: auto;
     background-color: #6C0A0A;

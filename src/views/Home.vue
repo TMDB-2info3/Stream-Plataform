@@ -138,6 +138,7 @@ hr {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  justify-content: center;
 }
 
 .movie-card, .tv-card {

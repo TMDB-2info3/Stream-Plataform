@@ -19,14 +19,13 @@ let lightDark = ref(false);
 </template>
 
 <style scoped>
-.light-mode { 
-  background-color: white; 
-  color: black; 
-  box-shadow: 0 0 1rem black;
+.light-mode {
+  background-color: white;
+  color: black;
 }
-.dark-mode { 
-  background-color: black; 
-  color: white; 
-  box-shadow: 0 0 1rem white;
+
+.dark-mode {
+  background-color: black;
+  color: white;
 }
 </style>

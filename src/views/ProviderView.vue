@@ -55,8 +55,11 @@ const formatDate = (date) => {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    justify-content: center;
+     margin-bottom: 4rem;
 
 }
+
 
 .movie-card {
     width: 15rem;
